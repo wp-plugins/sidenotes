@@ -7,7 +7,7 @@ Plugin URI: http://www.uidesign.at
 Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
 Tested up to: 2.8.4
-Stable tag: 0.9
+Stable tag: 0.9.1
 
 Simply add short side notes to your site, showing a date, title, description and a link. An additional RSS feed provides easy syndication.
 
@@ -39,8 +39,8 @@ No frequently asked questions yet
 
 == Screenshots ==
 
-1. The "Settings" page for the Sidenotes plugin: There are many ways to customize Sidenotes to best fit to your site.
-2. The "Tools" page for the Sidenotes plugin: Here you can publish new Sidenotes, edit existing ones or delete them.
+1. The "Settings" page for the Sidenotes plugin: There are many ways to customize side notes to best fit to your site.
+2. The "Tools" page for the Sidenotes plugin: Here you can publish new side notes, edit existing ones or delete them.
 3. The result: An example of horizontal side notes in the footer area of your site.
 
 
