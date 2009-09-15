@@ -32,7 +32,7 @@ http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-
 
 == Frequently Asked Questions ==
 
-No Frequently Asked Questions yet
+No frequently asked questions yet
 
 
 
