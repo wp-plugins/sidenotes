@@ -1,0 +1,211 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Sidenotes v0.9\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2009-09-09 13:37+0200\n"
+"Last-Translator: admin <stephan@uidesign.at>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: sidenotes.php:92
+#@ sidenotes
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: sidenotes.php:136
+#@ sidenotes
+msgid "Sidenotes Settings"
+msgstr "Sidenotes Einstellungen"
+
+#: sidenotes.php:161
+#: sidenotes.php:169
+#@ sidenotes
+msgid "Leave blank to show all"
+msgstr "Bei leerem Feld werden alle Sidenotes angezeigt"
+
+#: sidenotes.php:173
+#@ sidenotes
+msgid "Date format"
+msgstr "Datumsformat"
+
+#: sidenotes.php:185
+#@ sidenotes
+msgid "Custom"
+msgstr "Eigenes"
+
+#: sidenotes.php:186
+#@ sidenotes
+msgid "Documentation on date formatting"
+msgstr "Dokumentation zu Datumsformaten"
+
+#: sidenotes.php:191
+#@ sidenotes
+msgid "Template for sidenote"
+msgstr "Ausgabe der Sidenote"
+
+#: sidenotes.php:194
+#@ sidenotes
+msgid "Don't change it if you don't know! Only use double quotation marks!"
+msgstr "Nur ändern, wenn Sie wissen wie. Bitte nur doppelte Anführungszeichen verwenden!"
+
+#: sidenotes.php:194
+#@ sidenotes
+msgid "Reset to default"
+msgstr "Standardeinstellungen laden"
+
+#: sidenotes.php:196
+#@ sidenotes
+msgid "Legend"
+msgstr "Legende"
+
+#: sidenotes.php:198
+#@ sidenotes
+msgid "The title of your sidenote"
+msgstr "Der Titel der Sidenote"
+
+#: sidenotes.php:199
+#@ sidenotes
+msgid "The description of your sidenote"
+msgstr "Die Beschreibung der Sidenote"
+
+#: sidenotes.php:201
+#@ sidenotes
+msgid "The date you have published the sidenote"
+msgstr "Der Tag an dem die Sidenote veröffentlicht wurde"
+
+#: sidenotes.php:210
+#@ sidenotes
+msgid "Save Changes"
+msgstr "Änderungen speichern"
+
+#: sidenotes.php:249
+#: sidenotes.php:271
+#@ sidenotes
+msgid "Please insert all mandatory fields!"
+msgstr "Bitte Werte in alle Pflichtfelder eingeben"
+
+#: sidenotes.php:256
+#@ sidenotes
+msgid "Your sidenote has been successfully added!"
+msgstr "Die Sidenote wurde erfolgreich hinzugefügt!"
+
+#: sidenotes.php:276
+#@ sidenotes
+msgid "Your sidenote has been successfully updated!"
+msgstr "Die Sidenote wurde erfolgreich geändert!"
+
+#: sidenotes.php:291
+#@ sidenotes
+msgid "Your sidenote has been deleted!"
+msgstr "Die Sidenote wurde gelöscht!"
+
+#: sidenotes.php:304
+#@ sidenotes
+msgid "Sidenotes posts"
+msgstr "Sidenote Einträge"
+
+#: sidenotes.php:313
+#@ sidenotes
+msgid "Add a new sidenote to your blog"
+msgstr "Tragen Sie eine neue Sidenote ein"
+
+#: sidenotes.php:322
+#@ sidenotes
+msgid "Edit sidenote"
+msgstr "Sidenote editieren"
+
+#: sidenotes.php:331
+#: sidenotes.php:376
+#@ sidenotes
+msgid "Title"
+msgstr "Titel"
+
+#: sidenotes.php:337
+#@ sidenotes
+msgid "Url"
+msgstr "Url"
+
+#: sidenotes.php:343
+#: sidenotes.php:377
+#@ sidenotes
+msgid "Description"
+msgstr "Beschreibung"
+
+#: sidenotes.php:354
+#@ sidenotes
+msgid "Edit Sidenote"
+msgstr "Sidenote editieren"
+
+#: sidenotes.php:357
+#@ sidenotes
+msgid "Add Sidenote"
+msgstr "Sidenote hinzufügen"
+
+#: sidenotes.php:370
+#@ sidenotes
+msgid "All Sidenotes"
+msgstr "Alle Sidenotes"
+
+#: sidenotes.php:378
+#@ sidenotes
+msgid "URL"
+msgstr "URL"
+
+#: sidenotes.php:388
+#@ sidenotes
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: sidenotes.php:401
+#@ sidenotes
+msgid "Edit"
+msgstr "Editieren"
+
+#: sidenotes.php:407
+#@ sidenotes
+msgid "Delete"
+msgstr "Löschen"
+
+#: sidenotes.php:419
+#@ sidenotes
+msgid "You currently do not have any sidenotes"
+msgstr "Sie haben noch keine Sidenote hinzugefügt"
+
+#: sidenotes.php:200
+#@ sidenotes
+msgid "The URL in the &lt;a href...&gt; tag"
+msgstr "Die URL im &lt;a href...&gt; tag"
+
+#: sidenotes.php:429
+#@ sidenotes
+msgid "Only the last 100 side notes will be displayed"
+msgstr "Es werden nur die letzten 100 Einträge angezeigt"
+
+#: sidenotes.php:157
+#@ sidenotes
+msgid "Blog pages show at most"
+msgstr "Blog-Seiten zeigen max."
+
+#: sidenotes.php:160
+#: sidenotes.php:168
+#@ sidenotes
+msgid "sidenotes"
+msgstr "Sidenotes"
+
+#: sidenotes.php:165
+#@ sidenotes
+msgid "Syndication feeds show the most recent"
+msgstr "RSS-Feed zeigt die letzten"
+
