@@ -4,7 +4,7 @@ Contributors: stephanlenhart
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8SUV3C5UHSCQG&lc=AT&item_name=Stephan%20Lenhart&item_number=sidenotes&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at
-Tags: sidenotes, notes, posts
+Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
 Tested up to: 2.8.4
 Stable tag: 0.9
