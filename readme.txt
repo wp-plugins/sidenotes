@@ -22,10 +22,10 @@ http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-
 
 == Installation ==
 
-1. Copy the “sidenotes”-folder to your /wp-content/plugins/ directory.
-2. Copy sidenotes-rss.php from your /wp-content/plugins/ directory to your root directory (where you can also find files like wp-app.php, wp-atom.php,…)
-3. Activate the plug-in through the “Plugins” menu in your WordPress admin panel and do some additional setup in the “Settings” menu if you want.
-4. Write your first side note within the “Tools” menu
+1. Copy the "sidenotes"-folder to your /wp-content/plugins/ directory.
+2. Copy sidenotes-rss.php from your /wp-content/plugins/ directory to your root directory (where you can also find files like wp-app.php, wp-atom.php,...)
+3. Activate the plug-in through the "Plugins" menu in your WordPress admin panel and do some additional setup in the "Settings" menu if you want.
+4. Write your first side note within the "Tools" menu
 5. Place get_sidenotes() somewhere in your code
 
 
