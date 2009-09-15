@@ -7,7 +7,7 @@ Plugin URI: http://www.uidesign.at
 Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
 Tested up to: 2.8.4
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 
 Simply add short side notes to your site, showing a date, title, description and a link. An additional RSS feed provides easy syndication.
 
