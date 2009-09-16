@@ -14,7 +14,7 @@ Simply add short side notes to your site, showing a date, title, description and
 
 == Description ==
 
-This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
+This plugin provides the possibility to simply add short side notes to your Wordpress blog, showing the date of publication, a title and a description. In addition the plugin provides a link to the site the side notes refers to. Simply activate it and add new side notes within the "Tools" admin panel. To show off your side notes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. For easy syndication this plugin provides an additional RSS feed too. Enjoy!
 
 Related Links:
 http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
