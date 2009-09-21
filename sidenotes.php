@@ -3,7 +3,7 @@
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
-Version: 0.9
+Version: 0.9.1
 Author: Stephan Lenhart
 Author URI: http://www.uidesign.at
 */
@@ -33,8 +33,10 @@ function sidenotes_install() {
 	
 	$table_name = $wpdb->prefix . "sidenotes";
 	if($wpdb->get_var("show tables like `$table_name`") != $table_name) {
-
-		echo "Table-Name: ".$table_name;
+		
+		mysql_query("SET CHARACTER SET utf8");
+		mysql_query("SET NAMES utf8");
+	
 		$sql = "CREATE TABLE `" . $table_name . "` ( 
 			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
 			`title` VARCHAR(255) NOT NULL, 			
@@ -223,10 +225,12 @@ function sidenotes_settings() {
 	<?php
 }
 function sidenotes_posts() {
-	//global $sidenode_table;
-	
 	global $wpdb;
 	$reloadURI = get_option('siteurl') . '/wp-admin/tools.php?page=sidenotes_posts'; // Form Action URI
+	
+	mysql_query("SET CHARACTER SET utf8");
+	mysql_query("SET NAMES utf8");
+	
 	$sidenotes_table = $wpdb->prefix . "sidenotes";
 	$sidenotes_msg = "";
 	
@@ -247,9 +251,9 @@ function sidenotes_posts() {
 	
 	// Add new sidenote
 	if(isset($_POST['sidenotes_add'])){
-		$sidenotes_title = htmlentities($_POST['sidenotes_title']);
+		$sidenotes_title = htmlentities($_POST['sidenotes_title'],ENT_COMPAT,"UTF-8");
 		$sidenotes_url = clean_url($_POST['sidenotes_url'], $context = 'db');
-		$sidenotes_description = htmlentities($_POST['sidenotes_description']);
+		$sidenotes_description = htmlentities($_POST['sidenotes_description'],ENT_COMPAT,"UTF-8");
 		
 		if(empty($sidenotes_title) || empty($sidenotes_url) || empty($sidenotes_description)) {
 			$sidenotes_msg .= __("Please insert all mandatory fields!", "sidenotes");
@@ -268,9 +272,9 @@ function sidenotes_posts() {
 
 	// Edit sidenote
 	if(isset($_POST['sidenotes_edit']) && !isset($_POST['sidenotes_show_edit_id'])){
-		$sidenotes_title =  htmlentities($_POST['sidenotes_title']);
+		$sidenotes_title =  htmlentities($_POST['sidenotes_title'],ENT_COMPAT,"UTF-8");
 		$sidenotes_url = clean_url($_POST['sidenotes_url'], $context = 'db');
-		$sidenotes_description =  htmlentities($_POST['sidenotes_description']);
+		$sidenotes_description =  htmlentities($_POST['sidenotes_description'],ENT_COMPAT,"UTF-8");
 		$sidenotes_edit_id = $_POST['sidenotes_edit_id'];
 		
 		if(empty($sidenotes_title) || empty($sidenotes_url) || empty($sidenotes_description)) {
@@ -335,7 +339,7 @@ function sidenotes_posts() {
 		?>
 		</h3>
 		
-		<form method="post" action="<?php echo $reloadURI ?>">
+		<form method="post" action="<?php echo $reloadURI ?>" accept-charset="UTF-8" >
 			<table class="form-table">
 				<tr>
 					<th scope="row"><?php _e("Title", "sidenotes"); ?></th>
