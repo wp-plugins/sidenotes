@@ -3,7 +3,7 @@
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
-Version: 0.9.1
+Version: 0.9.2
 Author: Stephan Lenhart
 Author URI: http://www.uidesign.at
 */
@@ -118,7 +118,7 @@ function get_sidenotes() {
 		$output = str_replace("%sidenote_url", $result->url, $output);
 		$output = str_replace("%sidenote_title", $result->title, $output);
 		$output = str_replace("%sidenote_description", $result->description, $output);
-		$output = str_replace("%sidenote_date", date($sidenotes_date_format,$result->time_published), $output);
+		$output = str_replace("%sidenote_date", date_i18n($sidenotes_date_format,$result->time_published), $output);
 	
 		$all_sidenotes .= $output;
 	}
@@ -188,7 +188,7 @@ function sidenotes_settings() {
 						?>
 						<fieldset>
 							<legend class="screen-reader-text"><span>Date Format</span></legend>
-							<label title='<?php echo $wp_date_format; ?>'><input type='radio' name='sidenotes_date' value='<?php echo $wp_date_format; ?>'<?php if($sidenotes_date_format == $wp_date_format) { echo " checked='checked'"; } ?> onClick='sidenotesTakeToCustom(this)' /> <?php echo date($wp_date_format,time()); ?></label><br />
+							<label title='<?php echo $wp_date_format; ?>'><input type='radio' name='sidenotes_date' value='<?php echo $wp_date_format; ?>'<?php if($sidenotes_date_format == $wp_date_format) { echo " checked='checked'"; } ?> onClick='sidenotesTakeToCustom(this)' /> <?php echo date_i18n($wp_date_format,time()); ?></label><br />
 							
 							<label><input type="radio" name="sidenotes_date" id="sidenotes_date_custom_radio" value="<?php echo $sidenotes_date_format; ?>" <?php if($sidenotes_date_format != $wp_date_format) { echo " checked='checked'"; } ?> /> <?php _e("Custom", "sidenotes"); ?>: </label><input type="text" name="sidenotes_date_format" id="sidenotes_date_format" value="<?php echo $sidenotes_date_format; ?>" onFocus="sidenotesChangeDate(this)" class="middle-text" /> 
 							<p><a href="http://codex.wordpress.org/Formatting_Date_and_Time"><?php _e("Documentation on date formatting", "sidenotes"); ?></a></p>
@@ -406,7 +406,7 @@ function sidenotes_posts() {
 				$tbl_output .= "<tr class=''>";
 			$tbl_output .= "
 				<td class='nonessential'>$ResSidenotesNumber</td>
-				<td><strong>".$result->title." $published</strong><br /><span class='nonessential'>".date($sidenotes_dateformat,$result->time_published)."</span></td>
+				<td><strong>".$result->title." $published</strong><br /><span class='nonessential'>".date_i18n($sidenotes_dateformat,$result->time_published)."</span></td>
 				<td>".$result->description."</td>
 				<td>".$result->url."</td>
 				<td>&nbsp;
