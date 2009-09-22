@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Sidenotes
-Plugin URI: http://wordpress.org/extend/plugins/sidenotes/
+Plugin URI: http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
 Version: 0.9.2
 Author: Stephan Lenhart
