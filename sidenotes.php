@@ -3,10 +3,11 @@
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
-Version: 0.9.2
+Version: 0.9.3
 Author: Stephan Lenhart
 Author URI: http://www.uidesign.at
 */
+
 
 if(isset($_REQUEST["sidenotes_uninstall"])) register_deactivation_hook(__FILE__, 'sidenotes_uninstall');
 register_activation_hook(__FILE__,'sidenotes_install');
@@ -15,7 +16,6 @@ add_action('admin_menu', 'sidenotes_menu');
 add_filter('plugin_action_links', 'sidenotes_plugin_action', 10, 2);
 add_filter('wp_meta', 'sidenotes_meta');
 add_filter('wp_head', 'sidenotes_bloghead');
-//add_action('template_redirect', 'sidenotes_required_files');
 global $sidenotes_db_version, $sidenote_output_format;
 $sidenotes_db_version = "0.9";
 $sidenote_output_format = '<li><a href="%sidenote_url" title="%sidenote_title"><span class="date">%sidenote_date</span><br /><span class="text"><strong>%sidenote_title</strong> %sidenote_description</span></a></li>';
@@ -24,8 +24,10 @@ function sidenotes_install() {
 	global $wpdb, $user_level, $sidenotes_db_version, $sidenote_output_format;
 	
 	add_option('sidenotes_max_number', '4', '', 'no');
+	add_option('sidenotes_archives_max_number', '20', '', 'no');
 	add_option('sidenotes_feed_number', '20', '', 'no');
 	add_option('sidenotes_output_format', $sidenote_output_format, '', 'no');
+	add_option('sidenotes_archives_output_format', $sidenote_output_format, '', 'no');
 
 	// Check current default wp date format
 	$wp_date_format = get_option('date_format');
@@ -57,8 +59,10 @@ function sidenotes_install() {
 function sidenotes_uninstall() {
 	delete_option('sidenotes_db_version');
 	delete_option('sidenotes_max_number');
+	delete_option('sidenotes_archives_max_number');
 	delete_option('sidenotes_date_format');
 	delete_option('sidenotes_output_format');
+	delete_option('sidenotes_archives_output_format');
 	delete_option('sidenotes_feed_number');
 }
 
@@ -74,13 +78,6 @@ function sidenotes_bloghead() {
 function sidenotes_meta() {
 	echo "<li><a href='".get_bloginfo('url')."/sidenotes-rss.php'>RSS SideNotes</a></li>";
 }
-
-/*
-function sidenotes_required_files() {
-	wp_register_style('sidenotes', WP_PLUGIN_URL . '/sidenotes/sidenotes.css', array(), '1.0', 'screen');	
-	wp_enqueue_style('sidenotes');
-}
-*/
 
 function sidenotes_plugin_action($links, $file) {
 	static $this_plugin;
@@ -102,15 +99,14 @@ function get_sidenotes() {
 	// Get Wordpress date format
 	$sidenotes_date_format = get_option('sidenotes_date_format');
 	
+	// Get max number to show
 	if(get_option('sidenotes_max_number') != "") {
 		$tmp_sql = " LIMIT 0, ".get_option('sidenotes_max_number');
 	}
 	
 	// Get sidenotes
 	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_published FROM $sidenotes_table ORDER BY time_published DESC".$tmp_sql );
-	
 	$format = get_option('sidenotes_output_format');
-	
 	$all_sidenotes = "";
 	foreach($ResSidenotes as $result){
 		$output = $format;
@@ -126,8 +122,41 @@ function get_sidenotes() {
 	echo $all_sidenotes;
 }
 
+function get_sidenotes_archives() {
+	global $wpdb;
+	$sidenotes_table = $wpdb->prefix . "sidenotes";
+
+	// Get Wordpress date format
+	$sidenotes_date_format = get_option('sidenotes_date_format');
+
+	// Get max number to show
+	if(get_option('sidenotes_archives_max_number') != "") {
+		$tmp_sql = " LIMIT 0, ".get_option('sidenotes_archives_max_number');
+	}
+	
+	// Get sidenotes
+	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_published FROM $sidenotes_table ORDER BY time_published DESC".$tmp_sql );
+	$format = get_option('sidenotes_archives_output_format');
+	$all_sidenotes = "";
+	foreach($ResSidenotes as $result){
+		$output = $format;
+		
+		$output = str_replace("%sidenote_url", $result->url, $output);
+		$output = str_replace("%sidenote_title", $result->title, $output);
+		$output = str_replace("%sidenote_description", $result->description, $output);
+		$output = str_replace("%sidenote_date", date_i18n($sidenotes_date_format,$result->time_published), $output);
+	
+		$all_sidenotes .= $output;
+	}
+	$all_sidenotes .= "\n";
+	
+	$all_sidenotes .= "\n";
+	echo $all_sidenotes;
+}
+
 function sidenotes_settings() {
 	global $sidenote_output_format;
+	global $sidenote_archives_output_format;
 	?>
 	<div id="sidenotes" class="wrap">
 		<?php
@@ -145,9 +174,13 @@ function sidenotes_settings() {
 			function sidenotesChangeDate(obj) {
 				top.document.getElementById('sidenotes_date_custom_radio').checked = 'checked';
 			}
-			function sidenotesResetDefaultFormat() {
+			function sidenotesResetDefaultFormat(objid) {
 				var defaultFormat = '<?php echo $sidenote_output_format; ?>';
-				top.document.getElementById('sidenotes_output_format').innerText = defaultFormat;
+				if(document.all){
+					top.document.getElementById(objid).innerText = defaultFormat;
+				} else{
+					top.document.getElementById(objid).textContent = defaultFormat;
+				}
 			}
 		
 		</script>
@@ -170,6 +203,14 @@ function sidenotes_settings() {
 					</td>
 				</tr>
 				<tr valign="top">
+					<th scope="row"><label for="sidenotes_archives_max_number"><?php _e("Archive pages show at most", "sidenotes"); ?></label></th>
+					<td>
+						<input type="text" name="sidenotes_archives_max_number" class="small-text" value="<?php echo get_option('sidenotes_archives_max_number'); ?>" />
+						<?php _e("sidenotes", "sidenotes"); ?><br />
+						<span class="description"><?php _e("Leave blank to show all", "sidenotes"); ?></span>
+					</td>
+				</tr>
+				<tr valign="top">
 					<th scope="row"><label for="sidenotes_feed_number"><?php _e("Syndication feeds show the most recent", "sidenotes"); ?></label></th>
 					<td>
 						<input type="text" name="sidenotes_feed_number" class="small-text" value="<?php echo get_option('sidenotes_feed_number'); ?>" />
@@ -183,6 +224,7 @@ function sidenotes_settings() {
 						<?php
 						$sidenotes_date_format = get_option('sidenotes_date_format');
 						$sidenotes_output_format = get_option('sidenotes_output_format');
+						$sidenotes_archives_output_format = get_option('sidenotes_archives_output_format');
 						$wp_date_format = get_option('date_format');
 						$arr_sidenotes_date_format = array();
 						?>
@@ -195,11 +237,24 @@ function sidenotes_settings() {
 						</fieldset>
 					</td>
 				</tr>
+			</table>
+			<h3><?php _e("How your Sidenotes will be displayed", "sidenotes"); ?></h3>
+			<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><label for="sidenotes_output_format"><?php _e("Template for sidenote", "sidenotes"); ?></label></th>
+					<th scope="row"><label for="sidenotes_output_format"><?php _e("Template for blog pages", "sidenotes"); ?></label>
+					<br /><span class='nonessential legend'>get_sidenotes()</span></th>
 					<td>
 						<textarea name="sidenotes_output_format" id="sidenotes_output_format" class="large-text" rows="4"><?php echo $sidenotes_output_format; ?></textarea>
-						<span class="description"><?php _e("Don't change it if you don't know! Only use double quotation marks!", "sidenotes"); ?></span>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onClick="sidenotesResetDefaultFormat()"><?php _e("Reset to default", "sidenotes"); ?></a>
+						<span class="description"><?php _e("Don't change it if you don't know! Only use double quotation marks!", "sidenotes"); ?></span>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onClick="sidenotesResetDefaultFormat('sidenotes_output_format')"><?php _e("Reset to default", "sidenotes"); ?></a>
+						
+					</td>
+				</tr>
+				<tr valign="top">
+					<th scope="row"><label for="sidenotes_archives_output_format"><?php _e("Template for archive pages", "sidenotes"); ?></label>
+					<br /><span class='nonessential legend'>get_sidenotes_archives()</span></th>
+					<td>
+						<textarea name="sidenotes_archives_output_format" id="sidenotes_archives_output_format" class="large-text" rows="4"><?php echo $sidenotes_archives_output_format; ?></textarea>
+						<span class="description"><?php _e("Don't change it if you don't know! Only use double quotation marks!", "sidenotes"); ?></span>&nbsp;&nbsp;&nbsp;<a href="javascript:;" onClick="sidenotesResetDefaultFormat('sidenotes_archives_output_format')"><?php _e("Reset to default", "sidenotes"); ?></a>
 						<br /><br />
 						<strong><?php _e("Legend", "sidenotes"); ?>:</strong>
 						<br />
@@ -212,7 +267,7 @@ function sidenotes_settings() {
 			</table>
 
 			<input type="hidden" name="action" value="update" />
-			<input type="hidden" name="page_options" value="sidenotes_max_number,sidenotes_feed_number,sidenotes_date_format,sidenotes_output_format" />
+			<input type="hidden" name="page_options" value="sidenotes_max_number,sidenotes_archives_max_number,sidenotes_feed_number,sidenotes_date_format,sidenotes_output_format,sidenotes_archives_output_format" />
 			
 			<p class="submit">
 				<input type="submit" class="button-primary" value="<?php _e('Save Changes', 'sidenotes') ?>" />
@@ -265,7 +320,7 @@ function sidenotes_posts() {
 			$wpdb->query($queryAddSN);
 			$sidenotes_msg .= __("Your sidenote has been successfully added!", "sidenotes");
 			$sidenotes_title = "";
-			$sidenotes_url = "";
+			$sidenotes_url = "http://";
 			$sidenotes_description = "";			
 		}
 	}

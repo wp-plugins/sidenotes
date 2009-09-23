@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8SUV3
 Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
 Tested up to: 2.8.4
-Stable tag: 0.9.2
+Stable tag: 0.9.3
 
 Simply add short side notes to your site, showing a date, title, description and a link. An additional RSS feed provides easy syndication.
 
@@ -41,3 +41,5 @@ No frequently asked questions yet
 * Bug Fix: Cyrillic language support
 = 0.9.2 =
 * Bug Fix: Display date / time in local language
+= 0.9.3 =
+* New feature: Output all (or specific number of) Sidenotes via get_sidenotes_archives()
