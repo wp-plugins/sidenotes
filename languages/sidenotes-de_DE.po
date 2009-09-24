@@ -19,193 +19,212 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Textdomain-Support: yes"
 
-#: sidenotes.php:92
+#: sidenotes.php:88
 #@ sidenotes
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: sidenotes.php:136
+#: sidenotes.php:168
 #@ sidenotes
 msgid "Sidenotes Settings"
 msgstr "Sidenotes Einstellungen"
 
-#: sidenotes.php:161
-#: sidenotes.php:169
+#: sidenotes.php:202
+#: sidenotes.php:210
+#: sidenotes.php:218
 #@ sidenotes
 msgid "Leave blank to show all"
 msgstr "Bei leerem Feld werden alle Sidenotes angezeigt"
 
-#: sidenotes.php:173
+#: sidenotes.php:222
 #@ sidenotes
 msgid "Date format"
 msgstr "Datumsformat"
 
-#: sidenotes.php:185
+#: sidenotes.php:235
 #@ sidenotes
 msgid "Custom"
 msgstr "Eigenes"
 
-#: sidenotes.php:186
+#: sidenotes.php:236
 #@ sidenotes
 msgid "Documentation on date formatting"
 msgstr "Dokumentation zu Datumsformaten"
 
-#: sidenotes.php:191
-#@ sidenotes
-msgid "Template for sidenote"
-msgstr "Ausgabe der Sidenote"
-
-#: sidenotes.php:194
+#: sidenotes.php:248
+#: sidenotes.php:257
 #@ sidenotes
 msgid "Don't change it if you don't know! Only use double quotation marks!"
 msgstr "Nur ändern, wenn Sie wissen wie. Bitte nur doppelte Anführungszeichen verwenden!"
 
-#: sidenotes.php:194
+#: sidenotes.php:248
+#: sidenotes.php:257
 #@ sidenotes
 msgid "Reset to default"
 msgstr "Standardeinstellungen laden"
 
-#: sidenotes.php:196
+#: sidenotes.php:259
 #@ sidenotes
 msgid "Legend"
 msgstr "Legende"
 
-#: sidenotes.php:198
+#: sidenotes.php:261
 #@ sidenotes
 msgid "The title of your sidenote"
 msgstr "Der Titel der Sidenote"
 
-#: sidenotes.php:199
+#: sidenotes.php:262
 #@ sidenotes
 msgid "The description of your sidenote"
 msgstr "Die Beschreibung der Sidenote"
 
-#: sidenotes.php:201
+#: sidenotes.php:264
 #@ sidenotes
 msgid "The date you have published the sidenote"
 msgstr "Der Tag an dem die Sidenote veröffentlicht wurde"
 
-#: sidenotes.php:210
+#: sidenotes.php:273
 #@ sidenotes
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
-#: sidenotes.php:249
-#: sidenotes.php:271
+#: sidenotes.php:314
+#: sidenotes.php:336
 #@ sidenotes
 msgid "Please insert all mandatory fields!"
 msgstr "Bitte Werte in alle Pflichtfelder eingeben"
 
-#: sidenotes.php:256
+#: sidenotes.php:321
 #@ sidenotes
 msgid "Your sidenote has been successfully added!"
 msgstr "Die Sidenote wurde erfolgreich hinzugefügt!"
 
-#: sidenotes.php:276
+#: sidenotes.php:341
 #@ sidenotes
 msgid "Your sidenote has been successfully updated!"
 msgstr "Die Sidenote wurde erfolgreich geändert!"
 
-#: sidenotes.php:291
+#: sidenotes.php:356
 #@ sidenotes
 msgid "Your sidenote has been deleted!"
 msgstr "Die Sidenote wurde gelöscht!"
 
-#: sidenotes.php:304
+#: sidenotes.php:373
 #@ sidenotes
 msgid "Sidenotes posts"
 msgstr "Sidenote Einträge"
 
-#: sidenotes.php:313
+#: sidenotes.php:382
 #@ sidenotes
 msgid "Add a new sidenote to your blog"
 msgstr "Tragen Sie eine neue Sidenote ein"
 
-#: sidenotes.php:322
+#: sidenotes.php:391
 #@ sidenotes
 msgid "Edit sidenote"
 msgstr "Sidenote editieren"
 
-#: sidenotes.php:331
-#: sidenotes.php:376
+#: sidenotes.php:400
+#: sidenotes.php:445
 #@ sidenotes
 msgid "Title"
 msgstr "Titel"
 
-#: sidenotes.php:337
+#: sidenotes.php:406
 #@ sidenotes
 msgid "Url"
 msgstr "Url"
 
-#: sidenotes.php:343
-#: sidenotes.php:377
+#: sidenotes.php:412
+#: sidenotes.php:446
 #@ sidenotes
 msgid "Description"
 msgstr "Beschreibung"
 
-#: sidenotes.php:354
+#: sidenotes.php:423
 #@ sidenotes
 msgid "Edit Sidenote"
 msgstr "Sidenote editieren"
 
-#: sidenotes.php:357
+#: sidenotes.php:426
 #@ sidenotes
 msgid "Add Sidenote"
 msgstr "Sidenote hinzufügen"
 
-#: sidenotes.php:370
+#: sidenotes.php:439
 #@ sidenotes
 msgid "All Sidenotes"
 msgstr "Alle Sidenotes"
 
-#: sidenotes.php:378
+#: sidenotes.php:447
 #@ sidenotes
 msgid "URL"
 msgstr "URL"
 
-#: sidenotes.php:388
+#: sidenotes.php:457
 #@ sidenotes
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: sidenotes.php:401
+#: sidenotes.php:470
 #@ sidenotes
 msgid "Edit"
 msgstr "Editieren"
 
-#: sidenotes.php:407
+#: sidenotes.php:476
 #@ sidenotes
 msgid "Delete"
 msgstr "Löschen"
 
-#: sidenotes.php:419
+#: sidenotes.php:488
 #@ sidenotes
 msgid "You currently do not have any sidenotes"
 msgstr "Sie haben noch keine Sidenote hinzugefügt"
 
-#: sidenotes.php:200
+#: sidenotes.php:263
 #@ sidenotes
 msgid "The URL in the &lt;a href...&gt; tag"
 msgstr "Die URL im &lt;a href...&gt; tag"
 
-#: sidenotes.php:429
+#: sidenotes.php:498
 #@ sidenotes
 msgid "Only the last 100 side notes will be displayed"
 msgstr "Es werden nur die letzten 100 Einträge angezeigt"
 
-#: sidenotes.php:157
+#: sidenotes.php:198
 #@ sidenotes
 msgid "Blog pages show at most"
 msgstr "Blog-Seiten zeigen max."
 
-#: sidenotes.php:160
-#: sidenotes.php:168
+#: sidenotes.php:201
+#: sidenotes.php:209
+#: sidenotes.php:217
 #@ sidenotes
 msgid "sidenotes"
 msgstr "Sidenotes"
 
-#: sidenotes.php:165
+#: sidenotes.php:214
 #@ sidenotes
 msgid "Syndication feeds show the most recent"
 msgstr "RSS-Feed zeigt die letzten"
+
+#: sidenotes.php:206
+#@ sidenotes
+msgid "Archive pages show at most"
+msgstr "Archivseiten zeigen max."
+
+#: sidenotes.php:241
+#@ sidenotes
+msgid "How your Sidenotes will be displayed"
+msgstr "Wie deine Sidenotes dargestellt werden"
+
+#: sidenotes.php:244
+#@ sidenotes
+msgid "Template for blog pages"
+msgstr "Template für Blogseiten"
+
+#: sidenotes.php:253
+#@ sidenotes
+msgid "Template for archive pages"
+msgstr "Template für Archivseiten"
 
