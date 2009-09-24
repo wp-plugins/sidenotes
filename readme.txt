@@ -42,4 +42,4 @@ No frequently asked questions yet
 = 0.9.2 =
 * Bug Fix: Display date / time in local language
 = 0.9.3 =
-* New feature: Output all (or specific number of) Sidenotes via <code>&lt;?get_sidenotes_archives(); ?&gt;</code>
+* New feature: Output all (or specific number of) Sidenotes via <code>&lt;?php get_sidenotes_archives(); ?&gt;</code>
