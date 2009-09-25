@@ -21,7 +21,7 @@ $sidenotes_db_version = "0.9";
 $sidenote_output_format = '<li><a href="%sidenote_url" title="%sidenote_title"><span class="date">%sidenote_date</span><br /><span class="text"><strong>%sidenote_title</strong> %sidenote_description</span></a></li>';
 
 function sidenotes_install() {
-	global $wpdb, $user_level, $sidenotes_db_version, $sidenote_output_format;
+	global $wpdb, $sidenotes_db_version, $sidenote_output_format;
 	
 	add_option('sidenotes_max_number', '4', '', 'no');
 	add_option('sidenotes_archives_max_number', '20', '', 'no');
@@ -34,8 +34,8 @@ function sidenotes_install() {
 	add_option('sidenotes_date_format', ''.$wp_date_format.'', '', 'no');
 	
 	$table_name = $wpdb->prefix . "sidenotes";
-	if($wpdb->get_var("show tables like `$table_name`") != $table_name) {
-		
+	if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+
 		mysql_query("SET CHARACTER SET utf8");
 		mysql_query("SET NAMES utf8");
 	
@@ -46,7 +46,7 @@ function sidenotes_install() {
 			`description` TEXT NOT NULL, 
 			`time_updated` VARCHAR(15) NOT NULL,
 			`time_published` VARCHAR(15) NOT NULL,			
-			PRIMARY KEY ( `id` )
+			UNIQUE KEY `id` ( `id` )
 		);";
 
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -176,11 +176,7 @@ function sidenotes_settings() {
 			}
 			function sidenotesResetDefaultFormat(objid) {
 				var defaultFormat = '<?php echo $sidenote_output_format; ?>';
-				if(document.all){
-					top.document.getElementById(objid).innerText = defaultFormat;
-				} else{
-					top.document.getElementById(objid).textContent = defaultFormat;
-				}
+				top.document.getElementById(objid).value = defaultFormat;
 			}
 		
 		</script>
