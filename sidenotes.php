@@ -3,7 +3,7 @@
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
-Version: 0.9.3
+Version: 1.0
 Author: Stephan Lenhart
 Author URI: http://www.uidesign.at
 */
@@ -17,7 +17,7 @@ add_filter('plugin_action_links', 'sidenotes_plugin_action', 10, 2);
 add_filter('wp_meta', 'sidenotes_meta');
 add_filter('wp_head', 'sidenotes_bloghead');
 global $sidenotes_db_version, $sidenote_output_format;
-$sidenotes_db_version = "0.9";
+$sidenotes_db_version = "1.0";
 $sidenote_output_format = '<li><a href="%sidenote_url" title="%sidenote_title"><span class="date">%sidenote_date</span><br /><span class="text"><strong>%sidenote_title</strong> %sidenote_description</span></a></li>';
 
 function sidenotes_install() {
@@ -33,19 +33,20 @@ function sidenotes_install() {
 	$wp_date_format = get_option('date_format');
 	add_option('sidenotes_date_format', ''.$wp_date_format.'', '', 'no');
 	
-	$table_name = $wpdb->prefix . "sidenotes";
-	if($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+	$sidenotes_table = $wpdb->prefix . "sidenotes";
+
+	if($wpdb->get_var("show tables like '$sidenotes_table'") != $sidenotes_table) {
 
 		mysql_query("SET CHARACTER SET utf8");
 		mysql_query("SET NAMES utf8");
 	
-		$sql = "CREATE TABLE `" . $table_name . "` ( 
+		$sql = "CREATE TABLE `" . $sidenotes_table . "` ( 
 			`id` mediumint(9) NOT NULL AUTO_INCREMENT,
 			`title` VARCHAR(255) NOT NULL, 			
 			`url` VARCHAR(255) NOT NULL, 
 			`description` TEXT NOT NULL, 
-			`time_updated` VARCHAR(15) NOT NULL,
-			`time_published` VARCHAR(15) NOT NULL,			
+			`time_updated` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+			`time_updated_gmt` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',			
 			UNIQUE KEY `id` ( `id` )
 		);";
 
@@ -53,6 +54,24 @@ function sidenotes_install() {
 		dbDelta($sql);
 		
 		add_option("sidenotes_db_version", $sidenotes_db_version);
+	
+	// Update database from 0.9 to 0.95
+	} elseif(get_option('sidenotes_db_version') == '0.9') {	
+		
+		// Convert all entries to datetime
+		$UpdTime = $wpdb->query( "UPDATE $sidenotes_table SET time_published = FROM_UNIXTIME(time_published), time_updated = FROM_UNIXTIME(time_updated)");
+		
+		// Convert database structure to datetime
+		$UpdTime = $wpdb->query( "ALTER TABLE $sidenotes_table CHANGE `time_updated` `time_updated` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'");
+		$UpdTime = $wpdb->query( "ALTER TABLE $sidenotes_table CHANGE `time_published` `time_updated_gmt` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'");
+		
+		// Update time_published and make it to time_published_gmt
+		$GetSN = $wpdb->get_results( "SELECT id, time_updated, time_updated_gmt FROM $sidenotes_table");
+		foreach($GetSN as $result){
+			$wpdb->query( "UPDATE $sidenotes_table SET time_updated_gmt = '".get_gmt_from_date( $result->time_updated )."' WHERE id = ".$result->id);
+		}
+
+		update_option("sidenotes_db_version", $sidenotes_db_version);
 	}
 }
 
@@ -105,7 +124,7 @@ function get_sidenotes() {
 	}
 	
 	// Get sidenotes
-	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_published FROM $sidenotes_table ORDER BY time_published DESC".$tmp_sql );
+	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_updated FROM $sidenotes_table ORDER BY id DESC".$tmp_sql );
 	$format = get_option('sidenotes_output_format');
 	$all_sidenotes = "";
 	foreach($ResSidenotes as $result){
@@ -114,7 +133,7 @@ function get_sidenotes() {
 		$output = str_replace("%sidenote_url", $result->url, $output);
 		$output = str_replace("%sidenote_title", $result->title, $output);
 		$output = str_replace("%sidenote_description", $result->description, $output);
-		$output = str_replace("%sidenote_date", date_i18n($sidenotes_date_format,$result->time_published), $output);
+		$output = str_replace("%sidenote_date", mysql2date($sidenotes_date_format,$result->time_updated), $output);
 	
 		$all_sidenotes .= $output;
 	}
@@ -135,7 +154,7 @@ function get_sidenotes_archives() {
 	}
 	
 	// Get sidenotes
-	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_published FROM $sidenotes_table ORDER BY time_published DESC".$tmp_sql );
+	$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_updated FROM $sidenotes_table ORDER BY id DESC".$tmp_sql );
 	$format = get_option('sidenotes_archives_output_format');
 	$all_sidenotes = "";
 	foreach($ResSidenotes as $result){
@@ -144,13 +163,11 @@ function get_sidenotes_archives() {
 		$output = str_replace("%sidenote_url", $result->url, $output);
 		$output = str_replace("%sidenote_title", $result->title, $output);
 		$output = str_replace("%sidenote_description", $result->description, $output);
-		$output = str_replace("%sidenote_date", date_i18n($sidenotes_date_format,$result->time_published), $output);
+		$output = str_replace("%sidenote_date", mysql2date($sidenotes_date_format,$result->time_updated), $output);
 	
 		$all_sidenotes .= $output;
 	}
-	$all_sidenotes .= "\n";
-	
-	$all_sidenotes .= "\n";
+	$all_sidenotes .= "\n\n";
 	echo $all_sidenotes;
 }
 
@@ -226,7 +243,7 @@ function sidenotes_settings() {
 						?>
 						<fieldset>
 							<legend class="screen-reader-text"><span>Date Format</span></legend>
-							<label title='<?php echo $wp_date_format; ?>'><input type='radio' name='sidenotes_date' value='<?php echo $wp_date_format; ?>'<?php if($sidenotes_date_format == $wp_date_format) { echo " checked='checked'"; } ?> onClick='sidenotesTakeToCustom(this)' /> <?php echo date_i18n($wp_date_format,time()); ?></label><br />
+							<label title='<?php echo $wp_date_format; ?>'><input type='radio' name='sidenotes_date' value='<?php echo $wp_date_format; ?>'<?php if($sidenotes_date_format == $wp_date_format) { echo " checked='checked'"; } ?> onClick='sidenotesTakeToCustom(this)' /> <?php echo mysql2date($wp_date_format,time()); ?></label><br />
 							
 							<label><input type="radio" name="sidenotes_date" id="sidenotes_date_custom_radio" value="<?php echo $sidenotes_date_format; ?>" <?php if($sidenotes_date_format != $wp_date_format) { echo " checked='checked'"; } ?> /> <?php _e("Custom", "sidenotes"); ?>: </label><input type="text" name="sidenotes_date_format" id="sidenotes_date_format" value="<?php echo $sidenotes_date_format; ?>" onFocus="sidenotesChangeDate(this)" class="middle-text" /> 
 							<p><a href="http://codex.wordpress.org/Formatting_Date_and_Time"><?php _e("Documentation on date formatting", "sidenotes"); ?></a></p>
@@ -290,10 +307,8 @@ function sidenotes_posts() {
 		$sidenotes_url = "http://";
 	}
 	
-	// Get Wordpress date format
-	if(get_option('date_format') != "") {
-		$sidenotes_dateformat = get_option('date_format');
-	}
+	// Get sidenotes date format
+	$sidenotes_date_format = get_option('sidenotes_date_format');
 	
 	// Get max number of sidenotes that are shown to user
 	if(get_option('sidenotes_max_number') != "") {
@@ -312,7 +327,7 @@ function sidenotes_posts() {
 			if(substr($sidenotes_url,0,7) != 'http://')
 			$sidenotes_url = "http://".$sidenotes_url;
 			
-			$queryAddSN = "INSERT INTO $sidenotes_table (title, url, description, time_updated, time_published) VALUES ('$sidenotes_title', '$sidenotes_url', '$sidenotes_description','".time()."','".time()."')";
+			$queryAddSN = "INSERT INTO $sidenotes_table (title, url, description, time_updated, time_updated_gmt) VALUES ('$sidenotes_title', '$sidenotes_url', '$sidenotes_description','".current_time("mysql", $gmt=0)."','".current_time("mysql", $gmt=1)."')";
 			$wpdb->query($queryAddSN);
 			$sidenotes_msg .= __("Your sidenote has been successfully added!", "sidenotes");
 			$sidenotes_title = "";
@@ -331,7 +346,7 @@ function sidenotes_posts() {
 		if(empty($sidenotes_title) || empty($sidenotes_url) || empty($sidenotes_description)) {
 			$sidenotes_msg .= __("Please insert all mandatory fields!", "sidenotes");
 		} else {
-			$queryEditSN = "UPDATE $sidenotes_table SET url = '$sidenotes_url', title = '$sidenotes_title', description = '$sidenotes_description', time_updated = '".time()."' WHERE id = '$sidenotes_edit_id'";
+			$queryEditSN = "UPDATE $sidenotes_table SET url = '$sidenotes_url', title = '$sidenotes_title', description = '$sidenotes_description' WHERE id = '$sidenotes_edit_id'";
 			$wpdb->query($queryEditSN);
 			
 			$sidenotes_msg .= __("Your sidenote has been successfully updated!", "sidenotes");
@@ -428,7 +443,7 @@ function sidenotes_posts() {
 	
 		// Display all sidenotes
 		$sidenotes_max_number_table = 100;
-		$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_published FROM $sidenotes_table ORDER BY time_published DESC LIMIT 0,".$sidenotes_max_number_table );
+		$ResSidenotes = $wpdb->get_results( "SELECT id,title,url,description,time_updated FROM $sidenotes_table ORDER BY id DESC LIMIT 0,".$sidenotes_max_number_table );
 		
 		$ResSidenotesNumber = mysql_affected_rows();
 		
@@ -456,8 +471,8 @@ function sidenotes_posts() {
 			else
 				$tbl_output .= "<tr class=''>";
 			$tbl_output .= "
-				<td class='nonessential'>$ResSidenotesNumber</td>
-				<td><strong>".$result->title." $published</strong><br /><span class='nonessential'>".date_i18n($sidenotes_dateformat,$result->time_published)."</span></td>
+				<td class='nonessential'><nobr>$ResSidenotesNumber</nobr></td>
+				<td><strong>".$result->title." $published</strong><br /><span class='nonessential'>".mysql2date($sidenotes_date_format,$result->time_updated)."</span></td>
 				<td>".$result->description."</td>
 				<td>".$result->url."</td>
 				<td>&nbsp;

@@ -3,8 +3,8 @@ Contributors: stephanlenhart
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8SUV3C5UHSCQG&lc=AT&item_name=Stephan%20Lenhart&item_number=sidenotes&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
-Tested up to: 2.8.4
-Stable tag: 0.9.4
+Tested up to: 3.0.4
+Stable tag: 1.0
 
 Simply add short side notes to your site, showing a date, title, description and a link. An additional RSS feed provides easy syndication.
 
@@ -42,6 +42,8 @@ No frequently asked questions yet
 = 0.9.2 =
 * Bug Fix: Display date / time in local language
 = 0.9.3 =
-* New feature: Output all (or specific number of) Sidenotes via <code>&lt;?php get_sidenotes_archives(); ?&gt;</code>
-= 0.9.4 =
-* Bug Fix: Compatibility issues with "Set do default" function
+* New feature: Output all (or specific number of) Sidenotes via <code>&lt;?get_sidenotes_archives(); ?&gt;</code>
+= 1.0 =
+* Bug Fix: Update database structure from timestamp to datetime to correctly display date / time
+* Bug Fix: Output of side notes entries in correct order
+* Bug Fix: Output of side notes in sidenotes-rss.php - please update file in your root-directory!
