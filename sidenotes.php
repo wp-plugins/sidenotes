@@ -3,16 +3,16 @@
 Plugin Name: Sidenotes
 Plugin URI: http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
 Description: This plugin provides the possibility to simply add short side notes to your wordpress blog (a linked title with some description). Simply activate it and add new side notes within the "Tools" admin panel. To show off your sidenotes just put <code>&lt;?php get_sidenotes(); ?&gt;</code> in your template. Enjoy!
-Version: 1.0
+Version: 1.0.1
 Author: Stephan Lenhart
 Author URI: http://www.uidesign.at
 */
-
 
 if(isset($_REQUEST["sidenotes_uninstall"])) register_deactivation_hook(__FILE__, 'sidenotes_uninstall');
 register_activation_hook(__FILE__,'sidenotes_install');
 load_plugin_textdomain( 'sidenotes', FALSE, '/sidenotes/languages' );
 add_action('admin_menu', 'sidenotes_menu');
+add_action('init', 'sidenotes_add_feed');
 add_filter('plugin_action_links', 'sidenotes_plugin_action', 10, 2);
 add_filter('wp_meta', 'sidenotes_meta');
 add_filter('wp_head', 'sidenotes_bloghead');
@@ -20,6 +20,19 @@ global $sidenotes_db_version, $sidenote_output_format;
 $sidenotes_db_version = "1.0";
 $sidenote_output_format = '<li><a href="%sidenote_url" title="%sidenote_title"><span class="date">%sidenote_date</span><br /><span class="text"><strong>%sidenote_title</strong> %sidenote_description</span></a></li>';
 
+// RSS
+function sidenotes_add_feed() {
+	global $wp_rewrite;
+	add_feed('sidenotes', 'sidenotes_rss');
+	add_action('generate_rewrite_rules', 'sidenotes_rewrite_rules');
+	$wp_rewrite->flush_rules();
+}
+function sidenotes_rewrite_rules( $wp_rewrite ) {
+	$new_rules = array('feed/(.+)' => 'index.php?feed='.$wp_rewrite->preg_index(1));
+	$wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
+}
+
+// Install plugin
 function sidenotes_install() {
 	global $wpdb, $sidenotes_db_version, $sidenote_output_format;
 	
@@ -511,5 +524,8 @@ function sidenotes_posts() {
 	?>
 	</div>
 	<?php
+}
+function sidenotes_rss() {	
+	require_once(ABSPATH.PLUGINDIR.'/sidenotes/sidenotes-rss.php');
 }
 ?>

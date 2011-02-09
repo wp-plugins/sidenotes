@@ -9,11 +9,18 @@
 
 	// Last published
 	$ResLastPublished = $wpdb->get_row( "SELECT MAX(id), time_updated FROM $sidenotes_table" );
-	//echo $ResLastPublished->time_updated;
 	$lastPublished = $ResLastPublished->time_updated;
 	$blog_siteurl = get_option('siteurl');
 ?>
-<rss version='2.0' xmlns:atom='http://www.w3.org/2005/Atom'>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	<?php do_action('rss2_ns'); ?>
+>
 	<channel>
 		<title><?php bloginfo('name');?> - Sidenotes</title> 
 		<link><?php echo $blog_siteurl; ?></link>

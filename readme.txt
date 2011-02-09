@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=8SUV3
 Tags: sidenotes, notes, posts, links, rss
 Requires at least: 2.3
 Tested up to: 3.0.4
-Stable tag: 1.0
+Stable tag: 1.0.1
 
 Simply add short side notes to your site, showing a date, title, description and a link. An additional RSS feed provides easy syndication.
 
@@ -47,3 +47,5 @@ No frequently asked questions yet
 * Bug Fix: Update database structure from timestamp to datetime to correctly display date / time
 * Bug Fix: Output of side notes entries in correct order
 * Bug Fix: Output of side notes in sidenotes-rss.php - please update file in your root-directory!
+= 1.0.1 =
+* New Feature: Sidenotes RSS feed reworked to better support RSS readers (e.g. avoid HTTP 404 errors). Do *NOT* copy sidenotes-rss.php out of plugin-directory. This is not neccessary anymore.
