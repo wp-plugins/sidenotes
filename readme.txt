@@ -14,7 +14,7 @@ This plugin provides the possibility to simply add short side notes to your Word
 
 Related Links:
 [Plugin Homepage](http://www.uidesign.at/journal/2009/09/14/sidenotes-wordpress-plugin-side-notes-for-your-blog/
- "UI Design - Plugin Homepage")
+ "UI Design - Plugin Homepage") 
 [Plugin Demo](http://www.uidesign.at "UI Design - Homepage")
 
 
