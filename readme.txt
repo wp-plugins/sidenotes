@@ -1,5 +1,6 @@
 === Sidenotes ===
 Contributors: stephanlenhart
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E2MLMLMWFNT5U
 Tags: sidenotes, notes, posts, simple, links, rss
 Requires at least: 2.3
 Tested up to: 3.0.4
@@ -25,7 +26,12 @@ Related Links:
 
 
 == Frequently Asked Questions ==
-No frequently asked questions yet
+
+= I want to show my sidenotes in a list – as it is defined by default =
+You have to enclose the function call <code>&lt;?php get_sidenotes(); ?&gt;</code> with &lt;ul&gt; tags
+
+= Is there a demo of the plugin? =
+Yes of course! Just visit my [homepage](http://www.uidesign.at "UI Design - Homepage")
 
 
 == Screenshots ==
