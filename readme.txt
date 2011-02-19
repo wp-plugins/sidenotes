@@ -27,7 +27,7 @@ Related Links:
 
 == Frequently Asked Questions ==
 
-= I want to show my sidenotes in a list – as it is defined by default =
+= I want to show my sidenotes in a list as it is defined by default =
 You have to enclose the function call <code>&lt;?php get_sidenotes(); ?&gt;</code> with &lt;ul&gt; tags
 
 = Is there a demo of the plugin? =
