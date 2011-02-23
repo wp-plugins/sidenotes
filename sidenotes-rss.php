@@ -44,7 +44,7 @@ foreach($ResSidenotes as $result) {
 	echo "
 	<item>
 		<title>".$result->title."</title>
-		<description>".$result->description."</description>
+		<description>".htmlentities($result->description)."</description>
 		<link>".$result->url."</link>
 		<guid>".$blog_siteurl."/sidenotes-rss.php?item".$result->id."</guid>
 		<pubDate>".gmdate(DATE_RSS, strtotime($result->time_updated))."</pubDate>
